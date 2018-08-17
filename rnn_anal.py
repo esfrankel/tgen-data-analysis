@@ -1,19 +1,17 @@
 # Author: Eric Frankel
 
 import pandas as pd
+import subprocess
 
 
 def run_rnn(training_path):
-   mutations = pd.read_csv(training_path)
-   missenses = mutations['Protein Consequence']
-   new_muts = []
+    mutations = pd.read_csv(training_path)
+    missenses = mutations['Protein Consequence']
 
-   for mutation in missenses:
-       mut = mutation[2:]
-       new_mut = parse_aa(mut[0:3]) + mut[3:-3] + parse_aa(mut[-3:])
-       new_muts.append(new_mut)
-
-   mutations['Formatted Mutations'] = new_muts
+    for mutation in missenses:
+        mut = mutation[2:]
+        new_mut = parse_aa(mut[0:3]) + mut[3:-3] + parse_aa(mut[-3:])
+        subprocess.call("./mutation.sh && func('" + new_mut + "')", shell=True) # TODO: add function call from the mutation script
 
 
 def parse_aa(mutation):

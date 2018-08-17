@@ -11,7 +11,7 @@ def run_rnn(training_path):
     for mutation in missenses:
         mut = mutation[2:]
         new_mut = parse_aa(mut[0:3]) + mut[3:-3] + parse_aa(mut[-3:])
-        subprocess.call("./mutation.sh && func('" + new_mut + "')", shell=True) # TODO: add function call from the mutation script
+        subprocess.call("./mutation.sh && run_mut() " + new_mut, shell=True) # TODO: add function call from the mutation script
 
 
 def parse_aa(mutation):
